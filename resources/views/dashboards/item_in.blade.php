@@ -71,7 +71,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                          <form action="{{ route('storeItemOut') }}" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('storeItemIn') }}" method="POST" enctype="multipart/form-data">
                               {{ csrf_field() }}
                               <div class="modal-body">
                                 <div class="form-group">
@@ -223,7 +223,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ( $item_out as $io )
+                  @foreach ( $item_in as $io )
                   <tr>
                     <td>{{ $io->item_name }}</td>
                     <td>{{ $io->category }}</td>
@@ -245,7 +245,7 @@
                       )">
                         <i class="flaticon2-edit"></i>
                     </button>
-                      <a href="{{ route('deleteItemOut',['id'=>$io->id]) }}" class="btn btn-icon btn-light-primary btn-sm mr-0">
+                      <a href="{{ route('deleteItemIn',['id'=>$io->id]) }}" class="btn btn-icon btn-light-primary btn-sm mr-0">
                         <i class="flaticon-delete"></i>
                       </a>
                     </td>

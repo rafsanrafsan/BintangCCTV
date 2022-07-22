@@ -18,8 +18,15 @@ Route::post('/storeItem',[App\Http\Controllers\ItemController::class,'store'])->
 Route::post('/updateItem',[App\Http\Controllers\ItemController::class,'update'])->name('updateItem');
 Route::get('/item/{id}/delete',[App\Http\Controllers\ItemController::class,'delete'])->name('deleteItem');
 
+Route::get('/item-in',[App\Http\Controllers\ItemInController::class,'render']);
+Route::post('/storeItemIn',[\App\Http\Controllers\ItemInController::class,'store'])->name('storeItemIn');
+Route::get('updateItemIn',[\App\Http\Controllers\ItemInController::class,'update'])->name('updateItemIn');
+Route::get('itemIn/{id}/delete',[App\Http\Controllers\ItemInController::class,'delete'])->name('deleteItemIn');
+
 Route::get('/item-out',[App\Http\Controllers\ItemOutController::class,'render']);
 Route::post('/storeItemOut',[App\Http\Controllers\ItemOutController::class,'store'])->name('storeItemOut');
+Route::get('updateItemOut',[\App\Http\Controllers\ItemOutController::class,'update'])->name('updateItemOut');
+Route::get('itemOut/{id}/delete',[\App\Http\Controllers\ItemOutController::class,'delete'])->name('deleteItemOut');
 
 Route::get('/supplier',[\App\Http\Controllers\SupplierController::class,'render']);
 Route::post('/storeSupplier',[App\Http\Controllers\SupplierController::class,'store'])->name('storeSupplier');

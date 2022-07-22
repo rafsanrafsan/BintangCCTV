@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\InOut;
 use App\Models\Item;
 
-class ItemOutController extends Controller
+class ItemInController extends Controller
 {
-    public function render ()
+    //
+    public function render()
     {
-        
-        $item_out = InOut::all()->sortByDesc('id_item')->where('type','out');
+        $item_in = InOut::all()->sortByDesc('id_item')->where('type','in');
         $items = Item::orderBy('item_name','asc')->get();
-        return view('dashboards.item_out',['item_out' => $item_out,'items'=>$items]);
+        return view('dashboards.item_in',['item_in' => $item_in,'items'=>$items]);
     }
 
     public function store(Request $request)
@@ -26,17 +26,17 @@ class ItemOutController extends Controller
             'qty' => ['required','numeric'],
             'total_price' => ['required','numeric'],
         ]);
-        $out = InOut::create([
+        $in = InOut::create([
             'item_name' => $request->item_name,
             'category' => $request->category,
             'merk' => $request->merk,
             'price' => $request->price,
             'quantity' => $request->qty,
             'total_price' => $request->total_price,
-            'type' => 'out'
+            'type' => 'in'
         ]);
 
-        return redirect('/item-out');
+        return redirect('/item-in');
     }
 
     public function update()
@@ -46,8 +46,8 @@ class ItemOutController extends Controller
 
     public function delete($id)
     {
-        $item_out = InOut::find($id);
-        $item_out -> delete();
-        return redirect('/item-out')-> with ('sukses','Data Berhasil Dihapus!!!');
+        $item_in = InOut::find($id);
+        $item_in -> delete();
+        return redirect('/item-in');
     }
 }
