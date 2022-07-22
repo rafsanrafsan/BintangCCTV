@@ -197,7 +197,9 @@
             <table class="table table-bordered table-head-custom" id="datatable-order" style="width:100%">
               <thead>
                 <tr>
-                  <th>Supplier</th>
+                  <th>Supplier
+                    
+                  </th>
                   <th>Item</th>
                   <th>Total Qty</th>
                   <th>Status</th></th>
