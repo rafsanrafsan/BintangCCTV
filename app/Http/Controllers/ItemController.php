@@ -15,14 +15,16 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-        $item = new Item();
-        $item->item_name = $request->item_name;
-        $item->category = $request->category;
-        $item->merk = $request->merk;
-        $item->stock = $request->stock;
-        $item->fund = $request->fund;
-        $item->price = $request->price;
-         $item->save();
+        $data = $request->validate([
+            'item_name' => 'required',
+            'category' => 'required',
+            'merk' => 'required',
+            'stock' => 'required',
+            'fund' => 'required',
+            'price' => 'required',
+        ]);
+
+        Item::create($data);
 
         return redirect('/item');
     }
@@ -36,24 +38,24 @@ class ItemController extends Controller
     public function update(Request $request)
     {
         $data = $request->validate([
-            'id_item' => ['required', 'numeric'],
-            'item_name' => 'required',
-            'category' => 'required',
-            'merk' => 'required',
-            'stock' => 'required',
-            'fund' => 'required',
-            'price' => 'required',
+            'id' => ['required', 'exists:items,id_item'],
+            'item_name' => ['required', 'string', 'max:255'],
+            'category' => ['required', 'string', 'max:255'],
+            'merk' => ['required', 'string', 'max:255'],
+            'fund' => ['required', 'numeric', 'min:1'],
+            'stock' => ['required', 'numeric', 'min:1'],
+            'price' => ['required', 'numeric', 'min:1'],
         ]);
-        $item = Item::findOrFail($data['id_item']);
+        $item = Item::findOrFail($data['id']);
         $item->update([
-            'item_name' => $data['name'],
+            'item_name' => $data['item_name'],
             'category' => $data['category'],
             'merk' => $data['merk'],
             'stock' => $data['stock'],
             'fund' => $data['fund'],
             'price' => $data['price'],
         ]);
-        return back()->with('success', 'Pasien telah diupdate !');
+        return back()->with('success', 'Item telah diupdate !');
     }
 
     public function delete($id)

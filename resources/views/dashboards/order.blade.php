@@ -6,8 +6,8 @@
           <div role="alert" data-toggle="sweet-alert" data-sweet-alert="success">
             {{ session('sukses') }}
           </div>
-          
-            
+
+
             @endif --}}
 
  <!--begin::Content-->
@@ -44,7 +44,7 @@
     <!--begin::Container-->
     <div class="container">
       <!--begin::Notice-->
-     
+
       <!--end::Notice-->
       <!--begin::Card-->
       <div class="card card-custom">
@@ -93,7 +93,7 @@
                                 @endforeach
                               </select>
                             </div>
-                           
+
                             <div id="formRepeater">
                               <div id="formOrder-0">
                                   <label for="exampleSelect1">Item
@@ -151,55 +151,48 @@
 
            <!-- Modal Edit-->
            <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Supplier</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <i aria-hidden="true" class="ki ki-close"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                      <input id="edit-id" name="id" type="hidden" class="form-control @error('id') is-invalid @enderror" value="{{ old('id') }}" />
-                      <form action="{{ route('storeSupplier') }}" method="POST" enctype="multipart/form-data">
-                          {{ csrf_field() }}
-                          <div class="modal-body">
-                            <div class="form-group">
-                              <label>Supplier Name
-                              <span class="text-danger">*</span></label>
-                              <input id="edit-name" name="supplier_name" type="text" class="form-control" placeholder="Masukkan nama supplier" />
-                            </div>
-                            <div class="form-group">
-                              <label>Status
-                              <span class="text-danger">*</span></label>
-                              <input id="edit-status" name="contact" type="text" class="form-control" placeholder="Masukkan kontak" />
-                            </div>
-                            <div class="form-group mb-1">
-                              <label for="exampleTextarea">Address
-                              <span class="text-danger">*</span></label>
-                              <textarea id="edit-address" name="address" class="form-control" id="exampleTextarea" rows="3"></textarea>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary font-weight-bold">Tambah</button>
-                          </div>
-                      </form>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update Order</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i aria-hidden="true" class="ki ki-close"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('order-update') }}" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div class="modal-body">
+                                    <input id="edit-id" name="id" type="hidden" class="form-control @error('id') is-invalid @enderror" value="{{ old('id') }}" />
+                                    <div class="form-group">
+                                        <label for="exampleSelect1">Category
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <select id="edit-status" name="status" class="form-control">
+                                            <option value="Pending">Pending</option>
+                                            <option value="Batal">Batal</option>
+                                            <option value="Selesai">Selesai</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-primary font-weight-bold">Tambah</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-          </div>
-          </div>
+            </div>
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            
+
             <table class="table table-bordered table-head-custom" id="datatable-order" style="width:100%">
               <thead>
                 <tr>
-                  <th>Supplier
-                    
-                  </th>
+                  <th>Supplier</th>
                   <th>Item</th>
                   <th>Total Qty</th>
                   <th>Status</th></th>
@@ -224,9 +217,8 @@
                   <td>
                     <!-- Button trigger modal-->
                     <button type="button" class="btn btn-icon btn-light-warning btn-sm mr-1" onclick="modalEdit(
-                        '{{ $o->id_supplier }}',
+                        '{{ $o->id_order }}',
                         '{{ $o->status }}',
-                        '{{ $o->description }}',
                       )">
                         <i class="flaticon2-edit"></i>
                     </button>
@@ -264,7 +256,7 @@
     pageLength: 10,
 
   });
-  
+
   function addForm(repeater) {
     formRepeater++;
     var nameForm = repeater;
@@ -319,18 +311,11 @@
 
   function modalEdit(
 		id_order,
-		supplier_name,
-		contact,
-		addres
+        status
 	) {
-		var id = id_supplier;
-		var supplier_name = supplier_name;
-		var contact = contact;
-		var address = address;
 		$('#modalEdit').modal('show');
-		$('#edit-name').val(supplier_name)
-		$('#edit-contact').val(contact)
-		$('#edit-address').val(address)
+		$('#edit-id').val(id_order)
+		$('#edit-status').val(status)
 	}
 	$("#delete").click(function(e) {
 		Swal.fire("Good job!");

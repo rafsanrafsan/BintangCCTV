@@ -7,12 +7,13 @@ use App\Models\Item_Order;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
     public function render()
     {
-        $order = Order::with(['item','supplier'])->orderBy('id_order','desc')->get();
+        $order = Order::with(['supplier'])->orderBy('id_order','desc')->get();
         $suppliers = Supplier::orderBy('supplier_name','asc')->get();
         $items = Item::orderBy('item_name','asc')->get();
         return view('dashboards.order',['order'=>$order,'suppliers'=>$suppliers, 'items'=>$items]);
@@ -27,9 +28,7 @@ class OrderController extends Controller
             'items.*.qty'=> ['required','integer', 'min:1'],
             'description'=> ['nullable','string'],
         ]);
-
         $supplier = Supplier::find($data['supplier']);
-
         $order = Order::create([
             'id_supplier' => $supplier->id_supplier,
             'address' => $supplier->address,
@@ -46,5 +45,31 @@ class OrderController extends Controller
         }
 
         return redirect('order')->with('sukses','Data Berhasil Diinput!!!');
+    }
+
+    public function update(Request $request)
+    {
+        $data = $request->validate([
+            'id' => ['required', 'numeric', 'exists:orders,id_order'],
+            'status' => ['required', 'string', 'in:Pending,Selesai,Batal']
+        ]);
+        $order = Order::find($data['id']);
+        if ($order['status'] == 'Pending') {
+            if ($data['status'] == 'Pending') {
+                $items = $order->item;
+                foreach ($items as $item) {
+                    $last_stock = $item->item->stock;
+                    $item->item->update([
+                        'stock' => $last_stock+$item->quantity
+                    ]);
+                }
+            }
+            $order->update([
+                'status' => $data['status']
+            ]);
+        } else {
+            return redirect('order')->with('gagal','Hanya status pending yang dapat diubah !');
+        }
+        return redirect('order')->with('sukses','Berhasil merubah status order, stok item berhasil diupdate !');
     }
 }

@@ -35,7 +35,7 @@
         <!--begin::Container-->
         <div class="container">
           <!--begin::Notice-->
-         
+
           <!--end::Notice-->
           <!--begin::Card-->
           <div class="card card-custom">
@@ -77,7 +77,7 @@
                                 <div class="form-group">
                                   <label for="exampleSelect1">Item Name
                                   <span class="text-danger">*</span></label>
-                                  <select id="edit-name" name="item_name" class="form-control" id="exampleSelect1">
+                                  <select name="id_item" class="form-control" id="exampleSelect1">
                                         <option value="">Pilih Item</option>
                                         @foreach ($items as $item)
                                         <option value="{{ $item->id_item }}">{{ $item->item_name }}</option>
@@ -137,14 +137,19 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                          <form action="{{ route('updateItem') }}" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('updateItemIn') }}" method="POST" enctype="multipart/form-data">
                               {{ csrf_field() }}
                               <div class="modal-body">
-                                <input id="edit-id" name="id" type="hidden" class="form-control @error('id') is-invalid @enderror" value="{{ old('id') }}" />
+                                <input type="hidden" name="id" id="edit-id"/>
                                 <div class="form-group">
-                                  <label>Item Name  
+                                  <label for="exampleSelect1">Item Name
                                   <span class="text-danger">*</span></label>
-                                  <input id="edit-name" name="item_name" type="text" class="form-control" placeholder="Masukkan nama item" />
+                                  <select id="edit-id-item" name="id_item" class="form-control" id="exampleSelect1">
+                                        <option value="">Pilih Item</option>
+                                        @foreach ($items as $item)
+                                        <option value="{{ $item->id_item }}">{{ $item->item_name }}</option>
+                                        @endforeach
+                                  </select>
                                 </div>
                                 <div class="form-group">
                                   <label for="exampleSelect1">Category
@@ -225,7 +230,7 @@
                 <tbody>
                   @foreach ( $item_in as $io )
                   <tr>
-                    <td>{{ $io->item_name }}</td>
+                    <td>{{ $io->items->item_name  ?? '-'}}</td>
                     <td>{{ $io->category }}</td>
                     <td>{{ $io->merk }}</td>
                     <td>{{ $io->price }}</td>
@@ -235,8 +240,8 @@
                     <td>
                       <!-- Button trigger modal-->
                       <button type="button" class="btn btn-icon btn-light-warning btn-sm mr-1" onclick="modalEdit(
+                        '{{ $io->id }}',
                         '{{ $io->id_item }}',
-                        '{{ $io->item_name }}',
                         '{{ $io->category }}',
                         '{{ $io->merk }}',
                         '{{ $io->price }}',
@@ -269,29 +274,27 @@
 @section('script')
 <script>
   function modalEdit(
-		id_item,
-		item_name,
-		category,
-		merk,
-		fund,
-		price,
-		stock,
+        id,
+        id_item,
+        category,
+        merk,
+        price,
+        quantity,
+        total_price
 	) {
-		var id = id_item;
-		var item_name = item_name;
 		var category = category;
 		var merk = merk;
 		var price = price;
 		var quantity = quantity;
 		var total_price = total_price;
 		$('#modalEdit').modal('show');
-		$('#edit-name').val(item_name)
+		$('#edit-id').val(id)
+		$('#edit-id-item').val(id_item)
 		$('#edit-category').val(category)
 		$('#edit-merk').val(merk)
 		$('#edit-price').val(price)
 		$('#edit-quantity').val(quantity)
 		$('#edit-total_price').val(total_price)
-		$('#edit-id').val(id_item)
 	}
 	$("#delete").click(function(e) {
 		Swal.fire("Good job!");

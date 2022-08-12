@@ -10,7 +10,7 @@ class ItemOutController extends Controller
 {
     public function render ()
     {
-        
+
         $item_out = InOut::all()->sortByDesc('id_item')->where('type','out');
         $items = Item::orderBy('item_name','asc')->get();
         return view('dashboards.item_out',['item_out' => $item_out,'items'=>$items]);
@@ -18,16 +18,18 @@ class ItemOutController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'item_name'=> ['required','max:255'],
+        $data = $request->validate([
+            'id_item'=> ['required','max:255'],
             'category' => ['required','max:255'],
             'merk'=> ['required','max:255'],
             'price' => ['required','numeric'],
             'qty' => ['required','numeric'],
             'total_price' => ['required','numeric'],
         ]);
+        dd($data);
         $out = InOut::create([
-            'item_name' => $request->item_name,
+            // 'item_name' => $request->item_name,
+            
             'category' => $request->category,
             'merk' => $request->merk,
             'price' => $request->price,

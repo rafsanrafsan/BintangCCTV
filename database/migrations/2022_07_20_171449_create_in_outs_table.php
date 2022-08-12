@@ -15,14 +15,13 @@ class CreateInOutsTable extends Migration
     {
         Schema::create('in_outs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_item')->nullable();
-            $table->string('item_name')->nullable();
-            $table->string('category')->nullable();
-            $table->string('price')->nullable();
-            $table->string('merk')->nullable();
-            $table->string('quantity')->nullable();
-            $table->string('total_price')->nullable();
-            $table->string('type')->nullable();
+            $table->unsignedBigInteger('id_item');
+            $table->string('category');
+            $table->string('price');
+            $table->string('merk');
+            $table->string('quantity');
+            $table->string('total_price');
+            $table->string('type');
             $table->timestamps();
         });
     }

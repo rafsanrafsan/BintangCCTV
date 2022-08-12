@@ -9,5 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Item extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $guarded = [];
     protected $primaryKey = 'id_item';
 }
