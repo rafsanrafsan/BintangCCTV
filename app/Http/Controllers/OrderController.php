@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -54,12 +55,12 @@ class OrderController extends Controller
             'status' => ['required', 'string', 'in:Pending,Selesai,Batal']
         ]);
         $order = Order::find($data['id']);
-        if ($order['status'] == 'Pending') {
-            if ($data['status'] == 'Pending') {
+        if (Str::lower($order['status']) == 'pending') {
+            if (Str::lower($data['status']) != 'pending') {
                 $items = $order->item;
                 foreach ($items as $item) {
                     $last_stock = $item->item->stock;
-                    $item->item->update([
+                    $item_update[] = $item->item()->update([
                         'stock' => $last_stock+$item->quantity
                     ]);
                 }
@@ -71,5 +72,12 @@ class OrderController extends Controller
             return redirect('order')->with('gagal','Hanya status pending yang dapat diubah !');
         }
         return redirect('order')->with('sukses','Berhasil merubah status order, stok item berhasil diupdate !');
+    }
+
+    public function delete($id)
+    {
+        $order = Order::find($id);
+        $order -> delete();
+        return redirect('/order')-> with ('sukses','Data Berhasil Dihapus!!!');
     }
 }

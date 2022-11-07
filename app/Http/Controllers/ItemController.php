@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use PDF;
 
 class ItemController extends Controller
 {
@@ -63,5 +64,13 @@ class ItemController extends Controller
         $item = Item::find($id);
         $item -> delete();
         return redirect('/item')-> with ('sukses','Data Berhasil Dihapus!!!');
+    }
+
+    public function print()
+    {
+        $item = item::all();
+ 
+    	$pdf = PDF::loadview('reports.item_report',['item'=>$item]);
+    	return $pdf->stream();
     }
 }

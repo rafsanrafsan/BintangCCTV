@@ -41,8 +41,8 @@
           <div class="card card-custom">
             <div class="card-header flex-wrap border-0 pt-6 pb-0">
               <div class="card-title">
-                <h3 class="card-label">Suppliers
-                <span class="d-block text-muted pt-2 font-size-sm">Data Suppliers</span></h3>
+                <h3 class="card-label">Customer
+                <span class="d-block text-muted pt-2 font-size-sm">Data Customers</span></h3>
               </div>
               <div class="card-toolbar">
                 <div class="dropdown dropdown-inline mr-2">
@@ -72,7 +72,7 @@
                   </svg>
                   <!--end::Svg Icon-->
                 </span>
-                New Supplier
+                New Customer
               </button>
 
               <!-- Modal-->
@@ -80,24 +80,24 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Supplier</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">New Customer</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <i aria-hidden="true" class="ki ki-close"></i>
                             </button>
                         </div>
                         <div class="modal-body">
-                          <form action="{{ route('storeSupplier') }}" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('store.customer') }}" method="POST" enctype="multipart/form-data">
                               {{ csrf_field() }}
                               <div class="modal-body">
                                 <div class="form-group">
-                                  <label>Supplier Name
+                                  <label>Customer Name
                                   <span class="text-danger">*</span></label>
-                                  <input name="supplier_name" type="text" class="form-control" placeholder="Masukkan nama supplier" />
+                                  <input name="customer_name" type="text" class="form-control" placeholder="Masukkan nama customer" />
                                 </div>
                                 <div class="form-group">
-                                  <label>Kontak
+                                  <label>Phone
                                   <span class="text-danger">*</span></label>
-                                  <input name="contact" type="text" class="form-control" placeholder="Masukkan kontak" />
+                                  <input name="phone" type="text" class="form-control" placeholder="Masukkan kontak" />
                                 </div>
                                 <div class="form-group mb-1">
                                   <label for="exampleTextarea">Alamat
@@ -119,25 +119,25 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tambah Supplier</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Customer</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <i aria-hidden="true" class="ki ki-close"></i>
                             </button>
                         </div>
                         <div class="modal-body">
                           <input id="edit-id" name="id" type="hidden" class="form-control @error('id') is-invalid @enderror" value="{{ old('id') }}" />
-                          <form action="{{ route('storeSupplier') }}" method="POST" enctype="multipart/form-data">
+                          <form action="{{ route('update.customer') }}" method="POST" enctype="multipart/form-data">
                               {{ csrf_field() }}
                               <div class="modal-body">
                                 <div class="form-group">
                                   <label>Supplier Name
                                   <span class="text-danger">*</span></label>
-                                  <input id="edit-name" name="supplier_name" type="text" class="form-control" placeholder="Masukkan nama supplier" />
+                                  <input id="edit-name" name="customer_name" type="text" class="form-control" placeholder="Masukkan nama customer" />
                                 </div>
                                 <div class="form-group">
-                                  <label>Contact
+                                  <label>Phone    
                                   <span class="text-danger">*</span></label>
-                                  <input id="edit-contact" name="contact" type="text" class="form-control" placeholder="Masukkan kontak" />
+                                  <input id="edit-phone" name="phone" type="text" class="form-control" placeholder="Masukkan kontak" />
                                 </div>
                                 <div class="form-group mb-1">
                                   <label for="exampleTextarea">Address
@@ -181,29 +181,29 @@
               <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
                 <thead>
                   <tr>
-                    <th title="Field #1">Supplier Name</th>
-                    <th title="Field #2">Contact</th>
+                    <th title="Field #1">Customer Name</th>
+                    <th title="Field #2">Phone</th>
                     <th title="Field #3">Address</th>
                     <th title="Field #4">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ( $supplier as $supply )
+                  @foreach ( $customer as $cust )
                   <tr>
-                    <td>{{ $supply->supplier_name }}</td>
-                    <td>{{ $supply->contact }}</td>
-                    <td>{{ $supply->address }}</td>
+                    <td>{{ $cust->name }}</td>
+                    <td>{{ $cust->phone }}</td>
+                    <td>{{ $cust->address }}</td>
                     <td>
                       <!-- Button trigger modal-->
                       <button type="button" class="btn btn-icon btn-light-warning btn-sm mr-1" onclick="modalEdit(
-                        '{{ $supply->id_supplier }}',
-                        '{{ $supply->supplier_name }}',
-                        '{{ $supply->contact }}',
-                        '{{ $supply->address }}',
+                        '{{ $cust->id_customer }}',
+                        '{{ $cust->name }}',
+                        '{{ $cust->phone }}',
+                        '{{ $cust->address }}',
                       )">
                         <i class="flaticon2-edit"></i>
                     </button>
-                    <a href="{{ route('deleteSupplier',['id'=>$supply->id_supplier]) }}" class="btn btn-icon btn-light-primary btn-sm mr-0">
+                    <a href="{{ route('delete.customer',['id'=>$cust->id_customer]) }}" class="btn btn-icon btn-light-primary btn-sm mr-0">
                       <i class="flaticon-delete"></i>
                     </a>
                     </td>
@@ -226,18 +226,18 @@
 @section('script')
 <script>
   function modalEdit(
-		id_supplier,
-		supplier_name,
-		contact,
+		id_customer,
+		customer_name,
+		phone,
 		addres
 	) {
-		var id = id_supplier;
-		var supplier_name = supplier_name;
-		var contact = contact;
+		var id = id_cutomer;
+		var customer_name = customer_name;
+		var phone = phone;
 		var address = address;
 		$('#modalEdit').modal('show');
-		$('#edit-name').val(supplier_name)
-		$('#edit-contact').val(contact)
+		$('#edit-name').val(customer_name)
+		$('#edit-phone').val(phone)
 		$('#edit-address').val(address)
 	}
 	$("#delete").click(function(e) {

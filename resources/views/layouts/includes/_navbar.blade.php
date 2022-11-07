@@ -22,7 +22,7 @@
       <!--end::Aside Toggle-->
       <!--begin::Logo-->
       <a href="index.html">
-        <img alt="Logo" src="assets/media/logos/logo-letter-1.png" class="logo-sticky max-h-35px" />
+        <img alt="Logo" src="assets/media/logos/logo4.png" class="logo-sticky max-h-35px" />
       </a>
       <!--end::Logo-->
       <!--begin::Desktop Search-->
