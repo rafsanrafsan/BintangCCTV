@@ -14,10 +14,10 @@ class OrderController extends Controller
 {
     public function render()
     {
-        $order = Order::with(['supplier'])->orderBy('id_order','desc')->get();
+        $order = Order::with('supplier')->orderBy('id_order','desc')->get();
         $suppliers = Supplier::orderBy('supplier_name','asc')->get();
         $items = Item::orderBy('item_name','asc')->get();
-        return view('dashboards.order',['order'=>$order,'suppliers'=>$suppliers, 'items'=>$items]);
+        return view('dashboards.order',['order'=>$order, 'suppliers'=>$suppliers, 'items'=>$items]);
     }
 
     public function store(Request $request)

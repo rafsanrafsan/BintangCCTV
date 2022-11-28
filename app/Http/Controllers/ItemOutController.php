@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\InOut;
 use App\Models\Item;
+use App\Models\Customer;
 
 class ItemOutController extends Controller
 {
@@ -13,7 +14,8 @@ class ItemOutController extends Controller
 
         $item_out = InOut::all()->sortByDesc('id_item')->where('type','out');
         $items = Item::orderBy('item_name','asc')->get();
-        return view('dashboards.item_out',['item_out' => $item_out,'items'=>$items]);
+        $customers = Customer::orderBy('name','asc')->get();
+        return view('dashboards.item_out',['item_out' => $item_out,'items'=>$items, 'customers' => $customers]);
     }
 
     public function store(Request $request)

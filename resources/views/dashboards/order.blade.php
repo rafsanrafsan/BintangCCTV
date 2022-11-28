@@ -202,7 +202,6 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-
             <table class="table table-bordered table-head-custom" id="datatable-order" style="width:100%">
               <thead>
                 <tr>
@@ -218,7 +217,7 @@
               <tbody>
                 @foreach ($order as $o )
                 <tr>
-                  <td>{{ $o->supplier->supplier_name }}</td>
+                  <td>{{ $o->supplier->supplier_name ?? 'Tidak Ada Supplier' }}</td>
                   <td>
                     @foreach ($o->item as $item_order )
                       <p class="mb-0 text-nowrap">- {{ $item_order->item->item_name }} | QTY : {{ $item_order->quantity }} </p>
@@ -235,7 +234,7 @@
                     </span>
                   </td>
                   <td>{{ $o->description ?? '-' }}</td>
-                  <td>{{ $o->created_at }}</td>
+                  <td>{{ $o->created_at->format('d F Y H:i') }}</td>
                   <td>
                     <!-- Button trigger modal-->
                     <button type="button" class="btn btn-icon btn-light-warning btn-sm mr-1" onclick="modalEdit(

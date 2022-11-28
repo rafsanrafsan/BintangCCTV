@@ -13,4 +13,9 @@ class Supplier extends Model
     protected $fillable = [
         'id_supplier','supplier_name','contact','address'
     ];
+
+    public function order()
+    {
+        return $this->hasMany(Order::class, 'id_order', 'id_supplier');
+    }
 }

@@ -18,6 +18,6 @@ class InOut extends Model
      */
     public function items(): BelongsTo
     {
-        return $this->belongsTo(Item::class, 'id_item', 'id_item');
+        return $this->belongsTo(Item::class, 'id_item', 'id_item')->withTrashed();
     }
 }

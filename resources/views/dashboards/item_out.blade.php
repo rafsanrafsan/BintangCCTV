@@ -99,6 +99,17 @@
                                             enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <div class="modal-body">
+                                                {{-- <div class="form-group">
+                                                    <label for="exampleSelect1">Customer
+                                                    <span class="text-danger">*</span></label>
+                                                    <select name="customer" class="form-control" id="exampleSelect1" onchange="updateItem(this.value)">
+                                                      <option value="">Pilih Customer</option>
+                                                      @foreach ($customers as $cus )
+                                                      <option value="{{ $cus->id_customer }}">{{ $cus->name }}</option>
+                                                      @endforeach
+                                                    </select>
+                                                  </div> --}}
+
                                                 <div id="formRepeater">
                                                     <div id="formOrder-0">
                                                         <label for="exampleSelect1">Item
