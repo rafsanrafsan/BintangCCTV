@@ -14,7 +14,8 @@ class OrderController extends Controller
 {
     public function render()
     {
-        $order = Order::with('supplier')->orderBy('id_order','desc')->get();
+        $order = Order::with('supplier')->orderBy('created_at','desc')->get();
+        // dd($order);
         $suppliers = Supplier::orderBy('supplier_name','asc')->get();
         $items = Item::orderBy('item_name','asc')->get();
         return view('dashboards.order',['order'=>$order, 'suppliers'=>$suppliers, 'items'=>$items]);
@@ -32,6 +33,7 @@ class OrderController extends Controller
         $supplier = Supplier::find($data['supplier']);
         $order = Order::create([
             'id_supplier' => $supplier->id_supplier,
+            'no_invoice' => now()->format('dmyHi'),
             'address' => $supplier->address,
             'status' => 'Pending',
             'description' => $data['description'],

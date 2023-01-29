@@ -9,6 +9,10 @@ class Order extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $fillable = [
+        'id_order', 'no_invoice', 'id_supplier',
+        'address', 'status', 'description',
+    ];
     protected $primaryKey = 'id_order';
 
     public function item()

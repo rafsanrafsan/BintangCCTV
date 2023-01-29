@@ -205,6 +205,7 @@
             <table class="table table-bordered table-head-custom" id="datatable-order" style="width:100%">
               <thead>
                 <tr>
+                  <th>No Invoice</th>
                   <th>Supplier</th>
                   <th>Item</th>
                   <th>Total Qty</th>
@@ -217,6 +218,7 @@
               <tbody>
                 @foreach ($order as $o )
                 <tr>
+                  <td>{{ $o->no_invoice }}</td>
                   <td>{{ $o->supplier->supplier_name ?? 'Tidak Ada Supplier' }}</td>
                   <td>
                     @foreach ($o->item as $item_order )
@@ -271,6 +273,7 @@
 
   $('#datatable-order').DataTable({
     responsive: true,
+    order: [],
 
     lengthMenu: [5, 10, 25, 50],
 

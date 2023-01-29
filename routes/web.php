@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemInController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,7 @@ Route::get('/item/{id}/delete',[App\Http\Controllers\ItemController::class,'dele
 Route::get('item/print',[App\Http\Controllers\ItemController::class,'print'])->name('item.print');
 
 Route::get('/item-in',[App\Http\Controllers\ItemInController::class,'render']);
+Route::get('/get-item-in/{id}', [ItemInController::class, 'getItem']);
 Route::post('/storeItemIn',[\App\Http\Controllers\ItemInController::class,'store'])->name('storeItemIn');
 Route::post('updateItemIn',[\App\Http\Controllers\ItemInController::class,'update'])->name('updateItemIn');
 Route::get('itemIn/{id}/delete',[App\Http\Controllers\ItemInController::class,'delete'])->name('deleteItemIn');

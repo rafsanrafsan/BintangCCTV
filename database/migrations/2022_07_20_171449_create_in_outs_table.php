@@ -15,8 +15,8 @@ class CreateInOutsTable extends Migration
     {
         Schema::create('in_outs', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_customer')->nullable();
             $table->unsignedBigInteger('id_item');
-            $table->integer('id_customer');
             $table->string('category');
             $table->string('price');
             $table->string('merk');

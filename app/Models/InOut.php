@@ -20,4 +20,9 @@ class InOut extends Model
     {
         return $this->belongsTo(Item::class, 'id_item', 'id_item')->withTrashed();
     }
+
+    public function customers(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class, 'id_customer', 'id_customer');    
+    }
 }

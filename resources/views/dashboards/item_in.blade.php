@@ -76,10 +76,10 @@
 
               <!-- Modal-->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Item Out</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Item In</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <i aria-hidden="true" class="ki ki-close"></i>
                             </button>
@@ -89,46 +89,20 @@
                               {{ csrf_field() }}
                               <div class="modal-body">
                                 <div class="form-group">
-                                  <label for="exampleSelect1">Item Name
+                                  <label for="getItem">Nomor Invoice
                                   <span class="text-danger">*</span></label>
-                                  <select name="id_item" class="form-control" id="exampleSelect1">
+                                  <select name="id_item" class="form-control" id="getItem" onchange="getItemIn()">
                                         <option value="">Pilih Item</option>
-                                        @foreach ($items as $item)
-                                        <option value="{{ $item->id_item }}">{{ $item->item_name }}</option>
+                                        @foreach ($order as $item)
+                                        <option value="{{ $item->id_order }}">{{ $item->no_invoice }}</option>
                                         @endforeach
                                   </select>
                                 </div>
-                                <div class="form-group">
-                                  <label for="exampleSelect1">Category
-                                  <span class="text-danger">*</span></label>
-                                  <select name="category" class="form-control" id="exampleSelect1">
-                                    <option value="CCTV">CCTV</option>
-                                    <option value="Access Control">Access Control</option>
-                                    <option value="Power Supply">Power Supply</option>
-                                    <option value="DVR">DVR</option>
-                                    <option value="Hardisk">Hardisk</option>
-                                  </select>
+                                <div class="form-group" id="supplier_section"  style="display: none;">
+                                  <label>Nama Supplier<span class="text-danger">*</span></label>
+                                  <input readonly type="text" class="form-control" value="read" id="supplier_name"/>
                                 </div>
-                                <div class="form-group">
-                                  <label>Merk
-                                  <span class="text-danger">*</span></label>
-                                  <input name="merk" type="text" class="form-control" placeholder="Masukkan merk" />
-                                </div>
-                                <div class="form-group">
-                                  <label>Price
-                                  <span class="text-danger">*</span></label>
-                                  <input name="price" type="text" class="form-control" placeholder="Masukkan harga" />
-                                </div>
-                                <div class="form-group">
-                                  <label>Quantity
-                                  <span class="text-danger">*</span></label>
-                                  <input name="qty" type="text" class="form-control" placeholder="Masukkan stock" />
-                                </div>
-                                <div class="form-group">
-                                  <label>Total Price
-                                  <span class="text-danger">*</span></label>
-                                  <input name="total_price" type="text" class="form-control" placeholder="Masukkan stock" />
-                                </div>
+                                <div id="formItem"></div>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Batal</button>
@@ -314,4 +288,40 @@
 		Swal.fire("Good job!");
 	});
 </script>
+<script type='text/javascript'>
+  var orders = @json($order);
+
+  function getItemIn() {
+    var item_id = document.getElementById("getItem").value;
+    $("#formItem").empty();
+    try {
+      if(item_id > 0 || item_id != null){
+        fetchRecords(item_id);
+        var order = orders.filter( function (data) {
+          if (data.id_order == item_id) {
+            return data
+          }
+        })
+        order = order[0]
+        $('#supplier_name').val(order.supplier.supplier_name)
+        document.getElementById("supplier_section").style.display = "block";
+      } else {
+        document.getElementById("supplier_section").style.display = "none";
+      }
+    } catch (error) {
+      document.getElementById("supplier_section").style.display = "none";
+    }
+  }
+
+  function fetchRecords(id){
+    $.ajax({
+      url: 'get-item-in/'+id,
+      type: 'get',
+      dataType: 'json',
+      success: function(response){
+          $("#formItem").append(response);
+      }
+    });
+  }
+  </script>
 @stop

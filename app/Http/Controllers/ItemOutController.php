@@ -20,23 +20,40 @@ class ItemOutController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'id_item' => ['required', 'exists:items,id_item'],
-            'category' => ['required', 'string', 'max:255'],
-            'merk' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'numeric', 'min:1'],
-            'qty' => ['required', 'numeric', 'min:1'],
-            'total_price' => ['required', 'numeric', 'min:1'],
-        ]);
-        $data['quantity'] = $data['qty'];
-        unset($data['qty']);
-        $item = Item::findOrFail($data['id_item']);
-        InOut::create($data + [
-            'type' => 'out'
-        ]);
-        $item->update([
-            'stock' => $item->stock - $data['quantity']
-        ]);
+        // $data = $request->validate([
+            // 'customer' => ['required', 'exists:items,id_item'],
+            // 'id_item' => ['required', 'exists:items,id_item'],
+            // 'category' => ['required', 'string', 'max:255'],
+            // 'merk' => ['required', 'string', 'max:255'],
+            // 'price' => ['required', 'numeric', 'min:1'],
+            // 'qty' => ['required', 'numeric', 'min:1'],
+            // 'total_price' => ['required', 'numeric', 'min:1'],
+        // ]);
+        // $data['quantity'] = $data['qty'];
+        // unset($data['qty']);
+        // dd($request->all());
+        foreach ($request->items as $items => $value) {
+            $merk[] = Item::findOrFail($value['item']);
+        }
+        
+        foreach ($request->items as $index => $items) {
+            InOut::create([
+                'id_customer' => $request->customer,
+                'id_item' => $items['item'],
+                'category' => $merk[$index]['category'],
+                'price' => $items['price'],
+                'merk' => $merk[$index]['merk'],
+                'quantity' => $items['qty'],
+                'total_price' => $request['total_price'],
+                'type' => 'out'
+            ]);
+        }
+        
+        foreach ($request->items as $items => $value) {
+            Item::findOrFail($value['item'])->update([
+                'stock' => $merk[$items]['stock'] - $value['qty']
+            ]);
+        }
 
         return redirect('/item-out');
     }

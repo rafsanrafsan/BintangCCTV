@@ -51,7 +51,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="d-flex flex-column-auto flex-column pt-15 px-30">
                     <!--begin::Aside header-->
                     <a href="#" class="login-logo py-6">
-                        <img src="{{ asset('assets/media/logos/logo-1.png') }}" class="max-h-70px" alt="" />
+                        <img src="{{ asset('assets/media/logos/logo3.png') }}" class="max-h-60px " alt="" />
                     </a>
                     <!--end::Aside header-->
                     <!--begin: Wizard Nav-->

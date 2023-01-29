@@ -99,7 +99,7 @@
                                             enctype="multipart/form-data">
                                             {{ csrf_field() }}
                                             <div class="modal-body">
-                                                {{-- <div class="form-group">
+                                                <div class="form-group">
                                                     <label for="exampleSelect1">Customer
                                                     <span class="text-danger">*</span></label>
                                                     <select name="customer" class="form-control" id="exampleSelect1" onchange="updateItem(this.value)">
@@ -108,7 +108,7 @@
                                                       <option value="{{ $cus->id_customer }}">{{ $cus->name }}</option>
                                                       @endforeach
                                                     </select>
-                                                  </div> --}}
+                                                  </div>
 
                                                 <div id="formRepeater">
                                                     <div id="formOrder-0">
@@ -280,6 +280,7 @@
                                 style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th title="Field #2">Customer Name</th>
                                         <th title="Field #1" style="width:5%">Item Name</th>
                                         <th title="Field #2">Category</th>
                                         <th title="Field #3">Merk</th>
@@ -293,6 +294,7 @@
                                 <tbody>
                                     @foreach ( $item_out as $io )
                                     <tr>
+                                        <td>{{ $io->customers->name }}</td>
                                         <td>{{ $io->items->item_name }}</td>
                                         <td>{{ $io->category }}</td>
                                         <td>{{ $io->merk }}</td>

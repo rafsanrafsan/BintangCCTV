@@ -12,4 +12,5 @@ class Customer extends Model
     protected $fillable = [
         'id_customer','supplier_name','contact','address'
     ];
+    
 }
