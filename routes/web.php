@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/signin',[\App\Http\Controllers\AuthController::class,'renderin']);
-Route::post('/signin/store',[\App\Http\Controllers\AuthController::class,'sigin'])->name('signin');
+Route::post('/signin/store',[\App\Http\Controllers\AuthController::class,'signin'])->name('signin');
 Route::get('/signup',[App\Http\Controllers\AuthController::class,'renderup']);
 Route::post('/signup/store',[App\Http\Controllers\AuthController::class,'signup'])->name('signup');
 
-Route::get('/item',[App\Http\Controllers\ItemController::class,'render']);
+Route::get('/item',[App\Http\Controllers\ItemController::class,'render'])->name('item.list');
 Route::post('/storeItem',[App\Http\Controllers\ItemController::class,'store'])->name('storeItem');
 Route::post('/updateItem',[App\Http\Controllers\ItemController::class,'update'])->name('updateItem');
 Route::get('/item/{id}/delete',[App\Http\Controllers\ItemController::class,'delete'])->name('deleteItem');

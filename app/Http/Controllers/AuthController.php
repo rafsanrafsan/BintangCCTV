@@ -16,11 +16,11 @@ class AuthController extends Controller
 
     public function signin(Request $request)
     {
-        if(Auth::attempt($request->only('username' ,'password'))){
-            Auth::loginUsingId(User::where($request->only('username'))->first()->id);
-            return redirect('/item');
+        if(Auth::attempt(['username'=>$request->username, 'password'=>$request->password])){
+            return redirect()->route('item.list');
+        } else {
+            dd('salah');
         }
-        return redirect('/item')->with('Login Success');;
     }
 
     public function renderup()

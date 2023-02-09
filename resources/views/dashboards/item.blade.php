@@ -254,26 +254,26 @@
                                 style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th title="Field #1" style="width:5%">Item Name</th>
-                                        <th title="Field #2">Category</th>
+                                        <th style="width:5% !important;">Item Name</th>
+                                        <th  style="width:5% !important;">Category</th>
                                         <th title="Field #3">Merk</th>
                                         <th title="Field #4">Fund</th>
                                         <th title="Field #1">Price</th>
                                         <th title="Field #2">Stock</th>
-                                        <th title="Field #3">Item In</th>
+                                        <th title="Field #3">Date</th>
                                         <th title="Field #4">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ( $item as $i )
                                     <tr>
-                                        <td>{{ $i->item_name }}</td>
-                                        <td>{{ $i->category }}</td>
+                                        <td style="width:5% !important;">{{ $i->item_name }}</td>
+                                        <td  style="width:5% !important;">{{ $i->category }}</td>
                                         <td>{{ $i->merk }}</td>
                                         <td>{{ $i->fund }}</td>
                                         <td>{{ $i->price }}</td>
                                         <td>{{ $i->stock }}</td>
-                                        <td>{{ $i->created_at }}</td>
+                                        <td>{{ $i->created_at->translatedFormat('d F Y H:i') }}</td>
                                         <td>
                                             <!-- Button trigger modal-->
                                             <button type="button" class="btn btn-icon btn-light-warning btn-sm mr-1"
