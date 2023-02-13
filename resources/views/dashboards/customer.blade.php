@@ -231,7 +231,7 @@
 		phone,
 		addres
 	) {
-		var id = id_cutomer;
+		var id = id_customer;
 		var customer_name = customer_name;
 		var phone = phone;
 		var address = address;
