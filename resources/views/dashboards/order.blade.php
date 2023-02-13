@@ -22,16 +22,6 @@
           <!--begin::Page Title-->
           <h2 class="d-flex align-items-center text-dark font-weight-bold my-1 mr-3">Bintang CCTV Cileungsi</h2>
           <!--end::Page Title-->
-          <!--begin::Breadcrumb-->
-          <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold my-2 p-0">
-            <li class="breadcrumb-item">
-              <a href="" class="text-muted">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item">
-              <a href="" class="text-muted">Supplier</a>
-            </li>
-          </ul>
-          <!--end::Breadcrumb-->
         </div>
         <!--end::Page Heading-->
       </div>
