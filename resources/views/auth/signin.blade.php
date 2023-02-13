@@ -72,7 +72,19 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!--begin::Top-->
                 <!--end::Top-->
                 <!--begin::Wrapper-->
+                {{-- menampilkan error validasi --}}
+                @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <div class="d-flex flex-row-fluid flex-center">
+
+                    
                     <!--begin::Signin-->
                     <div class="login-form">
                         <!--begin::Form-->

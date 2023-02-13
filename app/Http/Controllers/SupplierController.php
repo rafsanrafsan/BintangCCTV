@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use PDF;
 
 class SupplierController extends Controller
 {
@@ -47,5 +48,13 @@ class SupplierController extends Controller
         $supplier = Supplier::find($id);
         $supplier -> delete();
         return redirect('/supplier')-> with ('sukses','Data Berhasil Dihapus!!!');
+    }
+
+    public function print()
+    {
+        $supplier = Supplier::all();
+ 
+    	$pdf = PDF::loadview('reports.supplier_report',['supplier'=>$supplier]);
+    	return $pdf->stream();
     }
 }

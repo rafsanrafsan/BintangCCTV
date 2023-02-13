@@ -13,16 +13,6 @@
               <!--begin::Page Title-->
               <h2 class="d-flex align-items-center text-dark font-weight-bold my-1 mr-3">Bintang CCTV Cileungsi</h2>
               <!--end::Page Title-->
-              <!--begin::Breadcrumb-->
-              <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold my-2 p-0">
-                <li class="breadcrumb-item">
-                  <a href="" class="text-muted">Dashboard</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a href="" class="text-muted">Supplier</a>
-                </li>
-              </ul>
-              <!--end::Breadcrumb-->
             </div>
             <!--end::Page Heading-->
           </div>
@@ -35,18 +25,18 @@
         <!--begin::Container-->
         <div class="container">
           <!--begin::Notice-->
-
+         
           <!--end::Notice-->
           <!--begin::Card-->
           <div class="card card-custom">
             <div class="card-header flex-wrap border-0 pt-6 pb-0">
               <div class="card-title">
                 <h3 class="card-label">Item In
-                <span class="d-block text-muted pt-2 font-size-sm">Incoming Item Information</span></h3>
+                <span class="d-block text-muted pt-2 font-size-sm">Data Barang Masuk</span></h3>
               </div>
               <div class="card-toolbar">
                 <div class="dropdown dropdown-inline mr-2">
-                  <button type="button" class="btn btn-light-primary font-weight-bolder">
+                  <a href="{{ route('item-in.print') }}" class="btn btn-light-primary font-weight-bolder">
                   <span class="svg-icon svg-icon-md">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -57,10 +47,10 @@
                       </g>
                     </svg>
                     <!--end::Svg Icon-->
-                  </span>Export</button>
+                  </span>Export</a>
                 </div>
-              <!-- Button trigger modal-->
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+               <!-- Button trigger modal-->
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 <span class="svg-icon svg-icon-md">
                   <!--begin::Svg Icon | path:assets/media/svg/icons/Design/Flatten.svg-->
                   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -74,8 +64,8 @@
                 </span>New
               </button>
 
-              <!-- Modal-->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+               <!-- Modal-->
+               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -197,12 +187,14 @@
                           </span>
                         </div>
                       </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <!--end::Search Form-->
               <!--end: Search Form-->
               <!--begin: Datatable-->
-              <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable" style="width:100%">
+              <table class="datatable datatable-bordered datatable-head-custom" id="kt_datatable">
                 <thead>
                   <tr>
                     <th title="Field #1" style="width:5%">Item Name</th>
@@ -221,10 +213,10 @@
                     <td>{{ $io->items->item_name}}</td>
                     <td>{{ $io->category }}</td>
                     <td>{{ $io->merk }}</td>
-                    <td>{{ $io->price }}</td>
+                    <td>Rp.{{number_format($io->price)  }}</td>
                     <td>{{ $io->quantity }}</td>
-                    <td>{{ $io->total_price }}</td>
-                    <td>{{ $io->created_at }}</td>
+                    <td>Rp.{{number_format($io->total_price)  }}</td>
+                    <td>{{ $io->created_at->translatedFormat('d F Y H:i') }}</td>
                     <td>
                       <!-- Button trigger modal-->
                       <button type="button" class="btn btn-icon btn-light-warning btn-sm mr-1" onclick="modalEdit(
@@ -255,73 +247,73 @@
       </div>
       <!--end::Entry-->
     </div>
-      </div>
     <!--end::Content-->
 
-@stop
-@section('script')
-<script>
-  function modalEdit(
-        id,
-        id_item,
-        category,
-        merk,
-        price,
-        quantity,
-        total_price
-	) {
-		var category = category;
-		var merk = merk;
-		var price = price;
-		var quantity = quantity;
-		var total_price = total_price;
-		$('#modalEdit').modal('show');
-		$('#edit-id').val(id)
-		$('#edit-id-item').val(id_item)
-		$('#edit-category').val(category)
-		$('#edit-merk').val(merk)
-		$('#edit-price').val(price)
-		$('#edit-quantity').val(quantity)
-		$('#edit-total_price').val(total_price)
-	}
-	$("#delete").click(function(e) {
-		Swal.fire("Good job!");
-	});
-</script>
-<script type='text/javascript'>
-  var orders = @json($order);
-
-  function getItemIn() {
-    var item_id = document.getElementById("getItem").value;
-    $("#formItem").empty();
-    try {
-      if(item_id > 0 || item_id != null){
-        fetchRecords(item_id);
-        var order = orders.filter( function (data) {
-          if (data.id_order == item_id) {
-            return data
+    @stop
+    @section('script')
+    <script>
+      function modalEdit(
+            id,
+            id_item,
+            category,
+            merk,
+            price,
+            quantity,
+            total_price
+      ) {
+        var category = category;
+        var merk = merk;
+        var price = price;
+        var quantity = quantity;
+        var total_price = total_price;
+        $('#modalEdit').modal('show');
+        $('#edit-id').val(id)
+        $('#edit-id-item').val(id_item)
+        $('#edit-category').val(category)
+        $('#edit-merk').val(merk)
+        $('#edit-price').val(price)
+        $('#edit-quantity').val(quantity)
+        $('#edit-total_price').val(total_price)
+      }
+      $("#delete").click(function(e) {
+        Swal.fire("Good job!");
+      });
+    </script>
+    <script type='text/javascript'>
+      var orders = @json($order);
+    
+      function getItemIn() {
+        var item_id = document.getElementById("getItem").value;
+        $("#formItem").empty();
+        try {
+          if(item_id > 0 || item_id != null){
+            fetchRecords(item_id);
+            var order = orders.filter( function (data) {
+              if (data.id_order == item_id) {
+                return data
+              }
+            })
+            order = order[0]
+            $('#supplier_name').val(order.supplier.supplier_name)
+            document.getElementById("supplier_section").style.display = "block";
+          } else {
+            document.getElementById("supplier_section").style.display = "none";
           }
-        })
-        order = order[0]
-        $('#supplier_name').val(order.supplier.supplier_name)
-        document.getElementById("supplier_section").style.display = "block";
-      } else {
-        document.getElementById("supplier_section").style.display = "none";
+        } catch (error) {
+          document.getElementById("supplier_section").style.display = "none";
+        }
       }
-    } catch (error) {
-      document.getElementById("supplier_section").style.display = "none";
-    }
-  }
-
-  function fetchRecords(id){
-    $.ajax({
-      url: 'get-item-in/'+id,
-      type: 'get',
-      dataType: 'json',
-      success: function(response){
-          $("#formItem").append(response);
+    
+      function fetchRecords(id){
+        $.ajax({
+          url: 'get-item-in/'+id,
+          type: 'get',
+          dataType: 'json',
+          success: function(response){
+              $("#formItem").append(response);
+          }
+        });
       }
-    });
-  }
-  </script>
-@stop
+      </script>
+    @stop
+    

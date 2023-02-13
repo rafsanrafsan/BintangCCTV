@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -81,5 +82,13 @@ class OrderController extends Controller
         $order = Order::find($id);
         $order -> delete();
         return redirect('/order')-> with ('sukses','Data Berhasil Dihapus!!!');
+    }
+
+    public function print()
+    {
+        $order = Order::all();
+ 
+    	$pdf = PDF::loadview('reports.order_report',['order'=>$order]);
+    	return $pdf->stream();
     }
 }

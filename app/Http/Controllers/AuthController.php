@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use \App\Models\User;
+use Session;
 class AuthController extends Controller
 {
     public function renderin()
@@ -16,10 +17,21 @@ class AuthController extends Controller
 
     public function signin(Request $request)
     {
+
+        $messages = [
+            'required' => ':attribute wajib diisi cuy!!!',
+            'min' => ':attribute harus diisi minimal :min karakter ya cuy!!!',
+            'max' => ':attribute harus diisi maksimal :max karakter ya cuy!!!',
+        ];
+        $this->validate($request,[
+            'username' => 'required',
+            'password' => 'required'
+         ]);
+
         if(Auth::attempt(['username'=>$request->username, 'password'=>$request->password])){
             return redirect()->route('item.list');
         } else {
-            dd('salah');
+            Session::flash('errors', ['' => 'Register gagal! Silahkan ulangi beberapa saat lagi']);
         }
     }
 
@@ -41,10 +53,16 @@ class AuthController extends Controller
  
         if($simpan){
 
-            return redirect('/sigin');
+            return redirect('/signin');
         } else {
             Session::flash('errors', ['' => 'Register gagal! Silahkan ulangi beberapa saat lagi']);
             return redirect('/signup');
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
     }
 }

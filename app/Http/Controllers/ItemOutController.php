@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\InOut;
 use App\Models\Item;
 use App\Models\Customer;
+use PDF;
 
 class ItemOutController extends Controller
 {
@@ -98,5 +99,13 @@ class ItemOutController extends Controller
         $item_out = InOut::find($id);
         $item_out -> delete();
         return redirect('/item-out')-> with ('sukses','Data Berhasil Dihapus!!!');
+    }
+
+    public function print()
+    {
+        $item_out = InOut::all()->sortByDesc('id_item')->where('type','out');
+ 
+    	$pdf = PDF::loadview('reports.item_out_report',['item_out'=>$item_out]);
+    	return $pdf->stream();
     }
 }

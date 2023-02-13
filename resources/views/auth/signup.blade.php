@@ -17,7 +17,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <head>
     <base href="../../../../">
     <meta charset="utf-8" />
-    <title>Sign Up | Keenthemes</title>
+    <title>Sign Up</title>
     <meta name="description" content="Singin page example" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="canonical" href="https://keenthemes.com/metronic" />
@@ -101,7 +101,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="pb-10 pb-lg-15">
                                     <h3 class="font-weight-bolder text-dark display5">Create Account</h3>
                                     <div class="text-muted font-weight-bold font-size-h4">Already have an Account ?
-                                        <a href="custom/pages/login/login-3/signin.html"
+                                        <a href="{{ route('login') }}"
                                             class="text-primary font-weight-bolder">Sign In</a></div>
                                 </div>
                                 <!--begin::Title-->

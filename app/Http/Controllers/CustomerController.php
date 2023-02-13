@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use PDF;
 
 class CustomerController extends Controller
 {
@@ -47,5 +48,13 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         $customer -> delete();
         return redirect('/customer')-> with ('sukses','Data Berhasil Dihapus!!!');
+    }
+
+    public function print()
+    {
+        $customer = Customer::all();
+ 
+    	$pdf = PDF::loadview('reports.customer_report',['customer'=>$customer]);
+    	return $pdf->stream();
     }
 }

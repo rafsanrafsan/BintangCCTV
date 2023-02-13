@@ -46,7 +46,7 @@
               </div>
               <div class="card-toolbar">
                 <div class="dropdown dropdown-inline mr-2">
-                  <button type="button" class="btn btn-light-primary font-weight-bolder">
+                  <a href="{{ route('supplier.print') }}" class="btn btn-light-primary font-weight-bolder">
                   <span class="svg-icon svg-icon-md">
                     <!--begin::Svg Icon | path:assets/media/svg/icons/Design/PenAndRuller.svg-->
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -57,7 +57,7 @@
                       </g>
                     </svg>
                     <!--end::Svg Icon-->
-                  </span>Export</button>
+                  </span>Export</a>
                 </div>
               <!-- Button trigger modal-->
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">

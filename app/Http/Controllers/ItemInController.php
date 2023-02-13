@@ -7,6 +7,7 @@ use App\Models\InOut;
 use App\Models\Item;
 use App\Models\Item_Order;
 use App\Models\Order;
+use PDF;
 
 class ItemInController extends Controller
 {
@@ -151,5 +152,13 @@ class ItemInController extends Controller
         $table = $table.'</tbody></table>';
 
         echo json_encode($table);
+    }
+
+    public function print()
+    {
+        $item_in = InOut::all()->sortByDesc('id_item')->where('type','in');
+ 
+    	$pdf = PDF::loadview('reports.item_in_report',['item_in'=>$item_in]);
+    	return $pdf->stream();
     }
 }

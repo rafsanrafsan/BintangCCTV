@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Item;
 use App\Models\Supplier;
 use App\Models\Customer;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // User::factory(10)->create();
+
+        User::create([
+            'name' => 'Admin Bintang CCTV',
+            'username' => 'admin',
+            'email' => 'bintangcctvcileungsi@gmail.com',
+            'password' => bcrypt('bintangcctvcileungsi')
+        ]);
 
         Item::create([
             'item_name' => 'DVR Dahua 4ch',
