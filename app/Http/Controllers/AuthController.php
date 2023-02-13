@@ -62,7 +62,7 @@ class AuthController extends Controller
          ]);
         if($simpan){
 
-            return redirect('/signin');
+            return redirect('/login');
         } else {
             Session::flash('errors', ['' => 'Register gagal! Silahkan ulangi beberapa saat lagi']);
             return redirect('/signup');
