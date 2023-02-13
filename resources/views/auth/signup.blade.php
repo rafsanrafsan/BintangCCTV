@@ -112,6 +112,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <input name="name" type="text"
                                         class="form-control h-auto py-7 px-6 border-0 rounded-lg font-size-h6"
                                         placeholder="Full Name" />
+
+                                    @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror    
                                 </div>
                                 <!--end::Form Group-->
                                 <!--begin::Form Group-->

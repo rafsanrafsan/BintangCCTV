@@ -73,15 +73,14 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!--end::Top-->
                 <!--begin::Wrapper-->
                 {{-- menampilkan error validasi --}}
-                @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
+
+                @if ($message = Session::get('gagal'))
+				<div class="alert alert-danger alert-block">
+					<button type="button" class="close" data-dismiss="alert">×</button> 
+					<strong>{{ $message }}</strong>
+				</div>
+				@endif
+
                 <div class="d-flex flex-row-fluid flex-center">
 
                     
@@ -93,7 +92,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="pb-5 pb-lg-15">
                                 <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In</h3>
                                 <div class="text-muted font-weight-bold font-size-h4">New Here?
-                                    <a href="{{ route('signup') }}"
+                                    <a href="/signup"
                                         class="text-primary font-weight-bolder">Create Account</a></div>
                             </div>
                             <!--begin::Title-->
@@ -109,9 +108,6 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="form-group">
                                 <div class="d-flex justify-content-between mt-n5">
                                     <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
-                                    <a href="custom/pages/login/login-3/forgot.html"
-                                        class="text-primary font-size-h6 font-weight-bolder text-hover-primary pt-5">Forgot
-                                        Password ?</a>
                                 </div>
                                 <input class="form-control h-auto py-7 px-6 rounded-lg border-0" type="password"
                                     name="password" autocomplete="off" />

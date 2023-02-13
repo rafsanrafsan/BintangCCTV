@@ -12,17 +12,12 @@ class AuthController extends Controller
 {
     public function renderin()
     {
-        return view('auth.signin');
+        return view('auth.login');
     }
 
     public function signin(Request $request)
     {
 
-        $messages = [
-            'required' => ':attribute wajib diisi cuy!!!',
-            'min' => ':attribute harus diisi minimal :min karakter ya cuy!!!',
-            'max' => ':attribute harus diisi maksimal :max karakter ya cuy!!!',
-        ];
         $this->validate($request,[
             'username' => 'required',
             'password' => 'required'
@@ -31,7 +26,8 @@ class AuthController extends Controller
         if(Auth::attempt(['username'=>$request->username, 'password'=>$request->password])){
             return redirect()->route('item.list');
         } else {
-            Session::flash('errors', ['' => 'Register gagal! Silahkan ulangi beberapa saat lagi']);
+            Session::flash('gagal','Username atau Password Salah!!!');
+            return redirect()->route('login');
         }
     }
 
@@ -42,6 +38,13 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {   
+
+        $this->validate($request,[
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+         ]);
         //d($request);
         $user = new User;
         $user->name = $request->name;
@@ -50,7 +53,13 @@ class AuthController extends Controller
         $user->password = bcrypt($request->password);
         $user->remember_token = Str::random(60);
         $simpan = $user->save();
- 
+
+        $this->validate($request,[
+            'name' => 'required',
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+         ]);
         if($simpan){
 
             return redirect('/signin');
